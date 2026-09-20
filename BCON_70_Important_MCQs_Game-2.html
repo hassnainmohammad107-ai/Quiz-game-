@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BCON Sukkur — 70 Important MCQs Game</title>
+<style>
+*{box-sizing:border-box} body{margin:0;font-family:Arial,sans-serif;background:#eef3f8;color:#17212b}
+.wrap{max-width:900px;margin:auto;padding:18px}
+header,.card{background:white;border-radius:18px;box-shadow:0 8px 25px rgba(0,0,0,.08)}
+header{padding:20px;margin-bottom:15px;text-align:center}
+h1{margin:0 0 7px;font-size:26px} .sub{color:#61707d}
+.top{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+.badge{background:#edf2f7;padding:8px 12px;border-radius:12px;font-weight:700}
+.card{padding:22px} .progress{height:10px;background:#e6ebf0;border-radius:20px;overflow:hidden;margin:8px 0 20px}
+.bar{height:100%;width:0;background:#2563eb;transition:.25s}
+.qnum{font-weight:700;color:#2563eb} .q{font-size:21px;font-weight:700;line-height:1.4;margin:10px 0 18px}
+.option{display:block;width:100%;text-align:left;padding:14px;margin:9px 0;border:2px solid #dce3ea;background:#fff;border-radius:12px;font-size:16px;cursor:pointer}
+.option:hover{border-color:#2563eb} .option.correct{border-color:#16a34a;background:#ecfdf3} .option.wrong{border-color:#dc2626;background:#fef2f2}
+.option:disabled{cursor:default}
+.actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+button.main{border:0;border-radius:12px;padding:12px 18px;background:#2563eb;color:white;font-weight:700;font-size:16px;cursor:pointer}
+button.secondary{border:0;border-radius:12px;padding:12px 18px;background:#64748b;color:white;font-weight:700;font-size:16px;cursor:pointer}
+#feedback{font-weight:700;min-height:24px;margin-top:10px}
+.hidden{display:none!important}
+.result{text-align:center} .score{font-size:52px;font-weight:800;color:#2563eb}
+table{width:100%;border-collapse:collapse;margin-top:15px} th,td{padding:10px;border-bottom:1px solid #e5e7eb;text-align:left}
+.note{font-size:13px;color:#667085;margin-top:18px;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>🎯 70 Important MCQs — BCON Sukkur</h1>
+<div class="sub">Interactive Nursing & Anatomy Quiz Game</div>
+<div class="top"><div class="badge">Questions: 70</div><div class="badge">Score: <span id="score">0</span>/70</div><div class="badge">Answered: <span id="answered">0</span>/70</div></div>
+</header>
+
+<div id="quiz" class="card">
+<div class="progress"><div id="bar" class="bar"></div></div>
+<div class="qnum" id="qnum"></div>
+<div class="q" id="question"></div>
+<div id="options"></div>
+<div id="feedback"></div>
+<div class="actions"><button id="next" class="main hidden">Next Question ➜</button><button id="restart" class="secondary">Restart</button></div>
+</div>
+
+<div id="result" class="card result hidden">
+<h2>🏁 Quiz Complete!</h2>
+<div class="score"><span id="finalScore">0</span>/70</div>
+<p id="percent"></p>
+<button class="main" onclick="restartGame()">Play Again</button>
+<h3>📊 Score List</h3>
+<table><thead><tr><th>Date/Time</th><th>Score</th><th>Percentage</th></tr></thead><tbody id="scores"></tbody></table>
+<button class="secondary" onclick="clearScores()">Clear Score List</button>
+</div>
+
+<div class="note">
+<strong>Source note:</strong> Questions are based on the uploaded lecture files with readable content. The uploaded “Unit 9 FON1.pptx” contains only a title/instructor/date slide in its readable text, so it was not used to invent MCQs. History questions are included because the history PDF was also uploaded.
+</div>
+</div>
+<script>
+const questions=[{"q": "Which muscle type is voluntary and striated?", "o": ["Skeletal muscle", "Cardiac muscle", "Smooth muscle", "All muscle types"], "a": 0, "s": "Skeletal Muscles"}, {"q": "What is the main nerve supply required for skeletal muscle contraction?", "o": ["Autonomic motor nerves", "Somatic motor nerves", "Sensory nerves only", "Cranial nerves only"], "a": 1, "s": "Skeletal Muscles"}, {"q": "Which nerve supplies the diaphragm?", "o": ["Radial nerve", "Phrenic nerve", "Sciatic nerve", "Axillary nerve"], "a": 1, "s": "Skeletal Muscles"}, {"q": "Which muscle closes the eye tightly and is supplied by CN VII?", "o": ["Orbicularis oculi", "Orbicularis oris", "Buccinator", "Masseter"], "a": 0, "s": "Skeletal Muscles"}, {"q": "Which muscle extends the elbow joint?", "o": ["Biceps brachii", "Brachialis", "Triceps brachii", "Deltoid"], "a": 2, "s": "Skeletal Muscles"}, {"q": "Which muscle abducts the arm beyond 15 degrees?", "o": ["Biceps brachii", "Deltoid", "Triceps brachii", "Latissimus dorsi"], "a": 1, "s": "Skeletal Muscles"}, {"q": "Damage to the common peroneal nerve can cause:", "o": ["Wrist drop", "Foot drop", "Claw hand", "Bell's palsy"], "a": 1, "s": "Skeletal Muscles"}, {"q": "Which gluteal muscle helps keep the pelvis level during walking?", "o": ["Gluteus maximus", "Gluteus medius", "Gluteus minimus", "Piriformis"], "a": 1, "s": "Skeletal Muscles"}, {"q": "How many bones are in the adult human skeleton according to the lecture?", "o": ["106", "206", "306", "406"], "a": 1, "s": "Human Skeleton"}, {"q": "How many bones are in the axial skeleton?", "o": ["60", "80", "126", "206"], "a": 1, "s": "Human Skeleton"}, {"q": "How many bones are in the appendicular skeleton?", "o": ["80", "100", "126", "206"], "a": 2, "s": "Human Skeleton"}, {"q": "How many cranial bones are listed in the lecture?", "o": ["6", "8", "10", "14"], "a": 1, "s": "Human Skeleton"}, {"q": "How many facial bones are listed in the skull?", "o": ["8", "12", "14", "16"], "a": 2, "s": "Human Skeleton"}, {"q": "Which auditory ossicle is the smallest bone?", "o": ["Malleus", "Incus", "Stapes", "Hyoid"], "a": 2, "s": "Human Skeleton"}, {"q": "How many cervical vertebrae are there?", "o": ["5", "7", "12", "26"], "a": 1, "s": "Human Skeleton"}, {"q": "Which ribs are called floating ribs?", "o": ["1–2", "3–7", "8–10", "11–12"], "a": 3, "s": "Human Skeleton"}, {"q": "Which part of the stomach is the lower exit region controlling chyme release into the duodenum?", "o": ["Cardia", "Fundus", "Body", "Pylorus"], "a": 3, "s": "Stomach & Small Intestine"}, {"q": "Which stomach layer contains gastric glands that secrete HCl, enzymes and mucus?", "o": ["Mucosa", "Submucosa", "Muscularis externa", "Serosa"], "a": 0, "s": "Stomach & Small Intestine"}, {"q": "Which substance activates pepsinogen and provides high acidity in the stomach?", "o": ["Bile", "HCl", "Mucus", "Intrinsic factor"], "a": 1, "s": "Stomach & Small Intestine"}, {"q": "Intrinsic factor is essential for absorption of which vitamin?", "o": ["Vitamin A", "Vitamin B12", "Vitamin C", "Vitamin K"], "a": 1, "s": "Stomach & Small Intestine"}, {"q": "Which is the primary site for initial heavy chemical breakdown in the small intestine?", "o": ["Ileum", "Jejunum", "Duodenum", "Colon"], "a": 2, "s": "Stomach & Small Intestine"}, {"q": "Which small-intestine segment is the main site of nutrient absorption according to the lecture?", "o": ["Duodenum", "Jejunum", "Ileum", "Rectum"], "a": 1, "s": "Stomach & Small Intestine"}, {"q": "Which structure inside a villus absorbs fat-soluble nutrients into lymph?", "o": ["Blood capillary", "Lacteal", "Artery", "Vein"], "a": 1, "s": "Stomach & Small Intestine"}, {"q": "What is the main purpose of segmentation in the small intestine?", "o": ["Move contents rapidly", "Mix chyme and maximize contact with villi", "Stop digestion", "Store feces"], "a": 1, "s": "Stomach & Small Intestine"}, {"q": "What is the main function of the digestive system?", "o": ["Only water storage", "Ingestion, digestion, absorption and elimination", "Only hormone production", "Only respiration"], "a": 1, "s": "Digestive System"}, {"q": "Which is an accessory digestive organ?", "o": ["Oesophagus", "Rectum", "Liver", "Small intestine"], "a": 2, "s": "Digestive System"}, {"q": "How many permanent teeth are listed in the lecture?", "o": ["20", "28", "32", "36"], "a": 2, "s": "Digestive System"}, {"q": "Which teeth are mainly used for cutting and biting food?", "o": ["Canines", "Incisors", "Premolars", "Molars"], "a": 1, "s": "Digestive System"}, {"q": "Which salivary glands are the largest?", "o": ["Sublingual", "Submandibular", "Parotid", "None"], "a": 2, "s": "Digestive System"}, {"q": "Which pharynx portion is an air passage only?", "o": ["Nasopharynx", "Oropharynx", "Laryngopharynx", "Oesophagus"], "a": 0, "s": "Digestive System"}, {"q": "Which phase of swallowing is voluntary?", "o": ["Oral phase", "Pharyngeal phase", "Oesophageal phase", "Gastric phase"], "a": 0, "s": "Digestive System"}, {"q": "At what vertebral level does the oesophagus pass through the diaphragm?", "o": ["C6", "T8", "T10", "T12"], "a": 2, "s": "Digestive System"}, {"q": "Isolation is mainly used to:", "o": ["Increase patient movement", "Prevent spread of microorganisms", "Replace hand hygiene", "Treat all infections directly"], "a": 1, "s": "Isolation Precautions"}, {"q": "Quarantine refers to restricting movement of people who:", "o": ["Already have severe symptoms only", "May have been exposed but are not yet showing symptoms", "Have no exposure risk", "Need surgery"], "a": 1, "s": "Isolation Precautions"}, {"q": "Which precaution uses gloves and gown for all interactions and dedicated equipment?", "o": ["Contact", "Droplet", "Airborne", "Protective"], "a": 0, "s": "Isolation Precautions"}, {"q": "Which precaution uses a surgical mask within 3–6 feet of the patient?", "o": ["Contact", "Droplet", "Airborne", "Protective"], "a": 1, "s": "Isolation Precautions"}, {"q": "Which precaution requires an N95 respirator and negative-pressure room?", "o": ["Standard", "Contact", "Droplet", "Airborne"], "a": 3, "s": "Isolation Precautions"}, {"q": "Which isolation protects immunocompromised patients from infections?", "o": ["Droplet", "Protective/Reverse", "Contact", "Standard"], "a": 1, "s": "Isolation Precautions"}, {"q": "Which is the first link in the chain of infection?", "o": ["Reservoir", "Portal of exit", "Infectious agent", "Susceptible host"], "a": 2, "s": "Isolation Precautions"}, {"q": "A patient in airborne isolation should be transported, if necessary, wearing a:", "o": ["Surgical mask", "No mask", "Only gloves", "Face shield only"], "a": 0, "s": "Isolation Precautions"}, {"q": "A pressure ulcer is also called:", "o": ["Bed sore", "Fracture", "Sprain", "Edema"], "a": 0, "s": "Pressure Ulcer / Bedsore"}, {"q": "Which is a major risk factor for pressure ulcers?", "o": ["Frequent movement", "Prolonged pressure over bony prominences", "Good nutrition", "Regular repositioning"], "a": 1, "s": "Pressure Ulcer / Bedsore"}, {"q": "Sliding down in bed is an example of:", "o": ["Friction", "Shear", "Nutrition", "Perfusion"], "a": 1, "s": "Pressure Ulcer / Bedsore"}, {"q": "Stage I pressure injury is characterized by:", "o": ["Exposed bone", "Non-blanchable redness of intact skin", "Full-thickness loss with fat visible", "Unknown depth due to eschar"], "a": 1, "s": "Pressure Ulcer / Bedsore"}, {"q": "Stage II pressure injury involves:", "o": ["Only intact skin", "Partial-thickness skin loss or blister", "Exposed bone", "Only muscle loss"], "a": 1, "s": "Pressure Ulcer / Bedsore"}, {"q": "Stage III pressure injury may show:", "o": ["Fat visible but no exposed bone/tendon/muscle", "Only redness", "Only a blood-filled blister", "No tissue loss"], "a": 0, "s": "Pressure Ulcer / Bedsore"}, {"q": "Stage IV pressure injury can have:", "o": ["Only epidermal damage", "Exposed bone, tendon or muscle", "No deep tissue loss", "Only mild redness"], "a": 1, "s": "Pressure Ulcer / Bedsore"}, {"q": "An unstageable pressure injury has depth that cannot be determined because it is covered by:", "o": ["Healthy skin", "Slough or eschar", "Hair", "Sweat"], "a": 1, "s": "Pressure Ulcer / Bedsore"}, {"q": "Communication is the exchange of information, ideas or thoughts between:", "o": ["Only one person", "Two or more people", "Only nurses", "Only patients"], "a": 1, "s": "Therapeutic Communication"}, {"q": "Which communication element is the person who encodes and sends the message?", "o": ["Receiver", "Sender", "Feedback", "Channel"], "a": 1, "s": "Therapeutic Communication"}, {"q": "Which element is the medium through which a message is sent or received?", "o": ["Stimulus", "Message", "Channel", "Receiver"], "a": 2, "s": "Therapeutic Communication"}, {"q": "Feedback is important because it shows that the receiver:", "o": ["Ignored the message", "Understood the primary message", "Changed the subject", "Ended the relationship"], "a": 1, "s": "Therapeutic Communication"}, {"q": "Which is an example of one-way communication?", "o": ["Lecture with no feedback", "Patient interview", "Nurse-patient discussion", "Two-person problem solving"], "a": 0, "s": "Therapeutic Communication"}, {"q": "Which technique encourages a client to choose the topic for discussion?", "o": ["Giving broad openings", "Rejecting", "Passing judgment", "Changing the subject"], "a": 0, "s": "Therapeutic Communication"}, {"q": "Repeating a client's last words in question form to help identify feelings is called:", "o": ["Reflecting", "Probing", "Stereotyping", "Giving advice"], "a": 0, "s": "Therapeutic Communication"}, {"q": "Which is a non-therapeutic response?", "o": ["Offering self", "Giving recognition", "False reassurance", "Seeking clarification"], "a": 2, "s": "Therapeutic Communication"}, {"q": "The main regulatory center for body temperature is the:", "o": ["Cerebellum", "Hypothalamus", "Medulla only", "Spinal cord"], "a": 1, "s": "Vital Signs"}, {"q": "According to the lecture, the normal adult respiratory rate is:", "o": ["4–8 breaths/min", "12–20 breaths/min", "25–35 breaths/min", "40–60 breaths/min"], "a": 1, "s": "Vital Signs"}, {"q": "Pulse is a wave of blood in an artery created by contraction of the:", "o": ["Right atrium", "Left ventricle", "Right ventricle", "Left atrium"], "a": 1, "s": "Vital Signs"}, {"q": "Blood pressure is the force of blood pushing against the walls of the:", "o": ["Veins only", "Arteries", "Lymph vessels", "Alveoli"], "a": 1, "s": "Vital Signs"}, {"q": "Which temperature site is usually about 0.5°C higher than oral according to the lecture?", "o": ["Axillary", "Rectal", "Temporal", "Skin"], "a": 1, "s": "Vital Signs"}, {"q": "When the skin becomes chilled, which response helps increase body temperature?", "o": ["Sweating increases", "Shivering", "Vasodilation only", "Sweating is increased"], "a": 1, "s": "Vital Signs"}, {"q": "Which factor generally increases respiratory rate?", "o": ["Sleep", "Exercise", "Sedatives", "Lying flat only"], "a": 1, "s": "Vital Signs"}, {"q": "Pain was described in the lecture as the:", "o": ["1st vital sign", "3rd vital sign", "5th vital sign", "10th vital sign"], "a": 2, "s": "Vital Signs"}, {"q": "When was the Partition of Bengal announced?", "o": ["1905", "1906", "1909", "1911"], "a": 0, "s": "History 1905–1947"}, {"q": "When was the All-India Muslim League founded according to the file?", "o": ["1905", "1906", "1911", "1916"], "a": 1, "s": "History 1905–1947"}, {"q": "The Morley–Minto Reforms of 1909 established:", "o": ["Provincial autonomy", "Separate electorates for Muslims", "The Lahore Resolution", "The Cabinet Mission"], "a": 1, "s": "History 1905–1947"}, {"q": "The Lucknow Pact was reached in:", "o": ["1909", "1911", "1916", "1920"], "a": 2, "s": "History 1905–1947"}, {"q": "The Simon Commission was protested with the slogan:", "o": ["Quit India", "Simon Go Back", "Do or Die", "Purna Swaraj"], "a": 1, "s": "History 1905–1947"}, {"q": "The Lahore Resolution was passed in:", "o": ["1935", "1937", "1940", "1942"], "a": 2, "s": "History 1905–1947"}];
+let i=0,score=0,answered=0,locked=false;
+const $=id=>document.getElementById(id);
+function render(){
+ locked=false;
+ $("qnum").textContent=`Question ${i+1} of 70 • ${questions[i].s}`;
+ $("question").textContent=questions[i].q;
+ $("options").innerHTML="";
+ $("feedback").textContent="";
+ $("next").classList.add("hidden");
+ questions[i].o.forEach((x,j)=>{
+   const b=document.createElement("button"); b.className="option"; b.textContent=String.fromCharCode(65+j)+". "+x;
+   b.onclick=()=>answer(j,b); $("options").appendChild(b);
+ });
+ $("bar").style.width=((i)/70*100)+"%";
+ $("score").textContent=score; $("answered").textContent=answered;
+}
+function answer(j,btn){
+ if(locked)return; locked=true; answered++;
+ const correct=questions[i].a;
+ [...$("options").children].forEach((b,k)=>{b.disabled=true;if(k===correct)b.classList.add("correct")});
+ if(j===correct){score++;btn.classList.add("correct");$("feedback").textContent="✅ Correct!";}
+ else{btn.classList.add("wrong");$("feedback").textContent="❌ Incorrect. Correct answer: "+questions[i].o[correct];}
+ $("score").textContent=score; $("answered").textContent=answered;
+ $("next").classList.remove("hidden");
+}
+$("next").onclick=()=>{if(i<69){i++;render()}else finish()};
+$("restart").onclick=restartGame;
+function restartGame(){i=0;score=0;answered=0;$("quiz").classList.remove("hidden");$("result").classList.add("hidden");render()}
+function finish(){
+ $("quiz").classList.add("hidden"); $("result").classList.remove("hidden");
+ const pct=Math.round(score/70*100); $("finalScore").textContent=score; $("percent").textContent=pct+"%";
+ const arr=JSON.parse(localStorage.getItem("bcon70scores")||"[]");
+ arr.unshift({time:new Date().toLocaleString(),score, pct}); localStorage.setItem("bcon70scores",JSON.stringify(arr.slice(0,20))); showScores();
+}
+function showScores(){
+ const arr=JSON.parse(localStorage.getItem("bcon70scores")||"[]");
+ $("scores").innerHTML=arr.map(x=>`<tr><td>${x.time}</td><td>${x.score}/70</td><td>${x.pct}%</td></tr>`).join("") || "<tr><td colspan='3'>No scores yet.</td></tr>";
+}
+function clearScores(){localStorage.removeItem("bcon70scores");showScores()}
+render();
+</script>
+</body></html>
